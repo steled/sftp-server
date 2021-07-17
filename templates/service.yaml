@@ -9,7 +9,14 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  {{- if eq .Values.service.type "LoadBalancer" }}
+  type: LoadBalancer
+  {{- if .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
+  {{- else }}
   type: {{ .Values.service.type }}
+  {{- end }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: ssh
