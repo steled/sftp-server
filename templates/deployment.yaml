@@ -77,8 +77,8 @@ spec:
               subPath: "{{ .Values.persistentVolume.subPath }}"
               {{- end }}
             {{- end }}
-            {{- if .Values.extraVolumeMounts }}
-            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+            {{- if .Values.sftp.extraVolumeMounts }}
+            {{- toYaml .Values.sftp.extraVolumeMounts | nindent 12 }}
             {{- end }}
             {{- if .Values.sftpConfig.authorizedKeys }}
             - name: authorized-keys
