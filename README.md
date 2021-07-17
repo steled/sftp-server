@@ -52,11 +52,19 @@ The following table lists the configurable parameters of the SFTP server chart a
 | `service.enabled`                  | If true, expose as Service                 | `true`                                      |
 | `service.type`                     | Type of exposed Service                    | `ClusterIP`                                 |
 | `service.port`                     | Port to expose Service                     | `22`                                        |
+| `service.loadBalancerIP`           | Specific IP for type LoadBalancer          | `""`                                        |
+| `sftp.securityContext`             | Set security context for sftp container    | `NET_ADMIN`                                 |
+| `sftp.extraVolumeMounts`           | extra volumeMounts for the sftp container  | `""`                                        |
+| `sftp.livenessProbe`               | enable/disable livenessProbe               | `true`                                        |
+| `sftp.readinessProbe`              | enable/disable readinessProbe              | `true`                                        |
+| `sftp.customLivenessProbe`         | specify a custom livenessProbe             | `""`                                        |
+| `sftp.customReadinessProbe`        | specify a custom readinessProbe            | `""`                                        |
 | `sftpConfig.username`              | SFTP username                              | `sftp`                                      |
 | `sftpConfig.password`              | SFTP password for user                     | `""`                                        |
 | `sftpConfig.encrypted`             | If true, password is given as hash         | `false`                                     |
 | `sftpConfig.uid`                   | UID of SFTP user                           | `1000`                                      |
 | `sftpConfig.gid`                   | GID of SFTP user                           | `100`                                       |
+| `sftpConfig.dirs`                  | Directories of SFTP user                   | `""`                                        |
 | `sftpConfig.hostKeys.secret`       | name of secret for SSH host keys           | `""`                                        |
 | `sftpConfig.hostKeys.keys`         | list of items to be used from secret       | `{}`                                        |
 | `sftpConfig.authorizedKeys`        | list of authorized SSH keys                | `{}`                                        |
@@ -67,6 +75,7 @@ The following table lists the configurable parameters of the SFTP server chart a
 | `persistentVolume.size`            | Size of volume                             | `20Gi`                                      |
 | `persistentVolume.storageClass`    | StorageClass to be used in PVC             | not set                                     |
 | `persistentVolume.subPath`         | Use subPath of existing volume             | `""`                                        |
+| `extraVolumes`                     | extra volumes for the sftp deployment      | `""`                                        |
 | `vxlanController.enabled`          | If enabled, start kube-vxlan-controller    | `false`                                     |
 | `vxlanController.annotationKey`    | Annotation name to set for vxlan           | `vxlan.openvnf.org/networks`                |
 | `vxlanController.metadataKey`      | Metadata key to set for vxlan              | `vxlan.openvnf.org`                         |
