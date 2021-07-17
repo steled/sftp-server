@@ -77,6 +77,9 @@ spec:
               subPath: "{{ .Values.persistentVolume.subPath }}"
               {{- end }}
             {{- end }}
+            {{- if .Values.extraVolumeMounts }}
+            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+            {{- end }}
             {{- if .Values.sftpConfig.authorizedKeys }}
             - name: authorized-keys
               mountPath: /home/ {{- .Values.sftpConfig.username -}} /.ssh/keys/
@@ -135,6 +138,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ if .Values.persistentVolume.existingClaim }}{{ .Values.persistentVolume.existingClaim }}{{- else }}{{ template "sftp-server.fullname" . }}-data{{- end }}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      {{- toYaml .Values.extraVolumes | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

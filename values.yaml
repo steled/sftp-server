@@ -79,6 +79,17 @@ persistentVolume:
   # storageClass: "-"
   subPath: ""
 
+# additional volumes to mount to the sftp container
+#extraVolumeMounts:
+#  - name: user-ftp-vol
+#    mountPath: "/home/user/ftp"
+
+# additional volumes to add to the sftp deployment.
+#extraVolumes:
+#  - name: user-ftp-vol
+#    persistentVolumeClaim:
+#      claimName: gitea-postgres-ssl
+
 vxlanController:
   enabled: false
   annotationKey: vxlan.openvnf.org/networks
