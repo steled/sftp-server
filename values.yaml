@@ -7,8 +7,8 @@ image:
   tag: alpine-3.7
   pullPolicy: IfNotPresent
 
-securityContext:
-  sftp:
+sftp:
+  securityContext:
     capabilities:
       add:
         - NET_ADMIN

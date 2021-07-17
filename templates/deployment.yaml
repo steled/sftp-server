@@ -59,9 +59,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if .Values.securityContext.sftp }}
+          {{- if .Values.sftp.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext.sftp | nindent 12 }}
+            {{- toYaml .Values.sftp.securityContext | nindent 12 }}
           {{- end }}
           ports:
             - name: ssh
@@ -88,12 +88,16 @@ spec:
               subPath: {{ . }}
             {{- end }}
             {{- end }}
+          {{- if .Values.sftp.livenessProbe.enabled }}
           livenessProbe:
             tcpSocket:
               port: 22
+          {{- end }}
+          {{- if .Values.sftp.readinessProbe.enabled }}
           readinessProbe:
             tcpSocket:
               port: 22
+          {{- end }}
           resources: {{- toYaml .Values.resources.sftp | nindent 12 }}
         {{- if .Values.vxlanController.enabled }}
         - name: vxlan-controller-agent
