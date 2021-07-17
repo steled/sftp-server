@@ -37,7 +37,7 @@ spec:
         image: {{ .Values.vxlanController.image.repository }}:{{ .Values.vxlanController.image.tag }}
         imagePullPolicy: {{ .Values.vxlanController.image.pullPolicy  | quote }}
         resources:
-{{ toYaml .Values.vxlanController.resources | indent 10 }}
+        {{ toYaml .Values.vxlanController.resources | indent 10 }}
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
@@ -59,9 +59,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.sftp.securityContext }}
           securityContext:
-            capabilities:
-              add: ["NET_ADMIN"]
+            {{- toYaml .Values.sftp.securityContext | nindent 12 }}
+          {{- end }}
           ports:
             - name: ssh
               containerPort: 22
@@ -76,6 +77,9 @@ spec:
               subPath: "{{ .Values.persistentVolume.subPath }}"
               {{- end }}
             {{- end }}
+            {{- if .Values.sftp.extraVolumeMounts }}
+            {{- toYaml .Values.sftp.extraVolumeMounts | nindent 12 }}
+            {{- end }}
             {{- if .Values.sftpConfig.authorizedKeys }}
             - name: authorized-keys
               mountPath: /home/ {{- .Values.sftpConfig.username -}} /.ssh/keys/
@@ -87,12 +91,22 @@ spec:
               subPath: {{ . }}
             {{- end }}
             {{- end }}
+          {{- if .Values.sftp.livenessProbe.enabled }}
           livenessProbe:
             tcpSocket:
               port: 22
+          {{- else if .Values.sftp.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.sftp.customLivenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if .Values.sftp.readinessProbe.enabled }}
           readinessProbe:
             tcpSocket:
               port: 22
+          {{- else if .Values.sftp.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.sftp.customReadinessProbe | nindent 12 }}
+          {{- end }}
           resources: {{- toYaml .Values.resources.sftp | nindent 12 }}
         {{- if .Values.vxlanController.enabled }}
         - name: vxlan-controller-agent
@@ -124,6 +138,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ if .Values.persistentVolume.existingClaim }}{{ .Values.persistentVolume.existingClaim }}{{- else }}{{ template "sftp-server.fullname" . }}-data{{- end }}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      {{- toYaml .Values.extraVolumes | nindent 6 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

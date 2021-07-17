@@ -7,6 +7,39 @@ image:
   tag: alpine-3.7
   pullPolicy: IfNotPresent
 
+sftp:
+  securityContext:
+    capabilities:
+      add:
+        - NET_ADMIN
+  livenessProbe:
+    enabled: true
+  readinessProbe:
+    enabled: true
+
+#  customLivenessProbe:
+#    exec:
+#      command:
+#        - lsof
+#        - -tni
+#        - :22
+#    failureThreshold: 3
+#    initialDelaySeconds: 5
+#    periodSeconds: 10
+#    successThreshold: 1
+#    timeoutSeconds: 1
+#  customReadinessProbe:
+#    exec:
+#      command:
+#        - lsof
+#        - -tni
+#        - :22
+#    failureThreshold: 3
+#    initialDelaySeconds: 5
+#    periodSeconds: 10
+#    successThreshold: 1
+#    timeoutSeconds: 1
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -21,6 +54,7 @@ sftpConfig:
   encrypted: false
   uid: ""
   gid: ""
+  dirs: ""
   hostKeys: {}
     #secret: name-of-existing-secret
     #keys:
@@ -44,6 +78,17 @@ persistentVolume:
   size: 20Gi
   # storageClass: "-"
   subPath: ""
+
+# additional volumes to mount to the sftp container
+#extraVolumeMounts:
+#  - name: user-ftp-vol
+#    mountPath: "/home/user/ftp"
+
+# additional volumes to add to the sftp deployment.
+#extraVolumes:
+#  - name: user-ftp-vol
+#    persistentVolumeClaim:
+#      claimName: gitea-postgres-ssl
 
 vxlanController:
   enabled: false
