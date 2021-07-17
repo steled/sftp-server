@@ -2,6 +2,16 @@
 
 ## pre 1.0
 
+### 0.3.3
+
+* added support for disabling liveness- and readinessProbe
+* added support for customLivenessProbd and customReadinessProbe
+* added support for securityContext configuration via values.yaml
+* added support for service type LoadBalancer and loadBalancerIP
+* added support for directories
+* added support for extraVolumes and extraVolumeMounts
+* updated documentation
+
 ### 0.3.2
 
 * add .helmignore for a clean chart
