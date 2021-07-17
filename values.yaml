@@ -12,7 +12,6 @@ sftp:
     capabilities:
       add:
         - NET_ADMIN
-        - SYS_CHROOT
   livenessProbe:
     enabled: true
   readinessProbe:
@@ -55,6 +54,7 @@ sftpConfig:
   encrypted: false
   uid: ""
   gid: ""
+  dirs: ""
   hostKeys: {}
     #secret: name-of-existing-secret
     #keys:
