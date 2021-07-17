@@ -92,11 +92,19 @@ spec:
           livenessProbe:
             tcpSocket:
               port: 22
+          {{- else if .Values.sftp.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.sftp.customLivenessProbe | nindent 12 }}
+          {{- end }}
           {{- end }}
           {{- if .Values.sftp.readinessProbe.enabled }}
           readinessProbe:
             tcpSocket:
               port: 22
+          {{- else if .Values.sftp.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.sftp.customReadinessProbe | nindent 12 }}
+          {{- end }}
           {{- end }}
           resources: {{- toYaml .Values.resources.sftp | nindent 12 }}
         {{- if .Values.vxlanController.enabled }}

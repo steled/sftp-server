@@ -13,6 +13,33 @@ sftp:
       add:
         - NET_ADMIN
         - SYS_CHROOT
+  livenessProbe:
+    enabled: true
+  readinessProbe:
+    enabled: true
+
+#  customLivenessProbe:
+#    exec:
+#      command:
+#        - lsof
+#        - -tni
+#        - :22
+#    failureThreshold: 3
+#    initialDelaySeconds: 5
+#    periodSeconds: 10
+#    successThreshold: 1
+#    timeoutSeconds: 1
+#  customReadinessProbe:
+#    exec:
+#      command:
+#        - lsof
+#        - -tni
+#        - :22
+#    failureThreshold: 3
+#    initialDelaySeconds: 5
+#    periodSeconds: 10
+#    successThreshold: 1
+#    timeoutSeconds: 1
 
 nameOverride: ""
 fullnameOverride: ""
