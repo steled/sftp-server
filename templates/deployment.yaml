@@ -37,7 +37,7 @@ spec:
         image: {{ .Values.vxlanController.image.repository }}:{{ .Values.vxlanController.image.tag }}
         imagePullPolicy: {{ .Values.vxlanController.image.pullPolicy  | quote }}
         resources:
-{{ toYaml .Values.vxlanController.resources | indent 10 }}
+        {{ toYaml .Values.vxlanController.resources | indent 10 }}
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
