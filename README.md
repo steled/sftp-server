@@ -55,8 +55,8 @@ The following table lists the configurable parameters of the SFTP server chart a
 | `service.loadBalancerIP`           | Specific IP for type LoadBalancer          | `""`                                        |
 | `sftp.securityContext`             | Set security context for sftp container    | `NET_ADMIN`                                 |
 | `sftp.extraVolumeMounts`           | extra volumeMounts for the sftp container  | `""`                                        |
-| `sftp.livenessProbe`               | enable/disable livenessProbe               | `true`                                        |
-| `sftp.readinessProbe`              | enable/disable readinessProbe              | `true`                                        |
+| `sftp.livenessProbe`               | enable/disable livenessProbe               | `true`                                      |
+| `sftp.readinessProbe`              | enable/disable readinessProbe              | `true`                                      |
 | `sftp.customLivenessProbe`         | specify a custom livenessProbe             | `""`                                        |
 | `sftp.customReadinessProbe`        | specify a custom readinessProbe            | `""`                                        |
 | `sftpConfig.username`              | SFTP username                              | `sftp`                                      |
