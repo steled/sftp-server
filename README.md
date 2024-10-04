@@ -49,6 +49,7 @@ The following table lists the configurable parameters of the SFTP server chart a
 | `image.repository`                 | Docker repo to use                         | `atmoz/sftp`                                |
 | `image.tag`                        | Docker tag to be used                      | `alpine-3.7`                                |
 | `image.pullPolicy`                 | Image pull policy                          | `IfNotPresent`                              |
+| `service.annotations`              | Service Annotations                        | `""`                                        |
 | `service.enabled`                  | If true, expose as Service                 | `true`                                      |
 | `service.type`                     | Type of exposed Service                    | `ClusterIP`                                 |
 | `service.port`                     | Port to expose Service                     | `22`                                        |
