@@ -2,6 +2,10 @@
 
 ## pre 1.0
 
+### 0.3.12
+
+* added support for service annotations
+
 ### 0.3.3
 
 * added support for disabling liveness- and readinessProbe
