@@ -25,10 +25,6 @@ jobs:
           RELEASE_BRANCHES: master
           INITIAL_VERSION: 0.3.3
 
-      # - name: Changelog
-      #   uses: scottbrenner/generate-changelog-action@master
-      #   id: Changelog
-
       - name: Create required package.json
         run: test -f package.json || echo '{}' >package.json
 
@@ -41,6 +37,6 @@ jobs:
           tag_name: ${{ steps.version.outputs.tag }}
           name: ${{ steps.version.outputs.tag }}
           body: |
-            ${{ steps.Changelog.outputs.changelog }}
+            CHANGELOG.md
           draft: false
           prerelease: false
